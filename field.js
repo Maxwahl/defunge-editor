@@ -56,22 +56,21 @@ export class Field {
             else {
                 this.putChar( key.key );
             }
+            this.fillUp();
         }
     }
     fillUp() {
-        if ( this.cursor.posY >= this.field.length ) {
-            this.field.push();
-            this.field[ this.cursor.posY ] = new Array( this.cursor.posX + 1 ).fill( " " );
-        }
-        while ( this.cursor.posX >= this.field[ this.cursor.posY ].length ) {
-            this.field[ this.cursor.posY ].push( " " )
-        }
-
         var maxColLength = 0;
         for ( var i = 0; i < this.field.length; i++ ) {
             maxColLength = Math.max( maxColLength, this.field[ i ].length );
         }
-
+        if ( this.cursor.posY >= this.field.length ) {
+            this.field.push();
+            this.field[ this.cursor.posY ] = new Array( maxColLength ).fill( " " );
+        }
+        while ( this.cursor.posX >= this.field[ this.cursor.posY ].length ) {
+            this.field[ this.cursor.posY ].push( " " )
+        }
         for ( var i = 0; i < this.field.length; i++ ) {
             if ( this.field[ i ].length < maxColLength ) {
                 while ( this.cursor.posX >= this.field[ i ].length ) {
@@ -79,10 +78,5 @@ export class Field {
                 }
             }
         }
-
-        this.field.forEach( function ( element ) {
-            element.forEach( function ( item, i ) { if ( item === undefined ) element[ i ] = " "; } );
-        } );
-
     }
 }
