@@ -1,52 +1,12 @@
 <head>
     <style>
-        td {
-            font-family: 'Courier New', Courier, monospace;
-            line-height: normal;
-            height: 20px;
-            width: 10px;
-            border: 1px dotted black;
-        }
-
-        td {
-            margin: 0;
-            padding: 1;
-        }
-
-        .activeText {
-            border: 1px solid red;
-            padding: 0;
-        }
-
-        .editor-movement {
-            color: #eb1064;
-        }
-
-        .editor-operators {
-            color: #f05209;
-        }
-
-        .editor-io {
-            color: #06a570;
-        }
-
-        .editor-stack {
-            color: #810eb6;
-        }
-
-        .editor-string {
-            color: #07d307;
-        }
-
-        .editor-end {
-            color: #572c05;
-        }
-
-        .bridge {
-            background-color: #a971f3;
-        }
+        
     </style>
-    <style src="./style.css"></style>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script id="__bs_script__">//<![CDATA[
+            document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.7'><\/script>".replace("HOST", location.hostname));
+        //]]>
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="module">
         import { Editor } from "./index.js";
@@ -63,9 +23,11 @@
 </head>
 
 <body>
-    <table id="field">
+    <div class="field-holder">
+    <table id="field" cellspacing="0">
         <tbody>
 
         </tbody>
     </table>
+    </div>
 </body>

@@ -1,0 +1,82 @@
+http, body {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: 
+        repeating-linear-gradient(45deg, #dddddd33, #ffffff00 100px),
+        repeating-linear-gradient(-45deg, #dddddd33, #ffffff00 100px)
+}
+
+.field-holder {
+    max-height: 80vh;
+    max-width: 80vw;
+    overflow: auto;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px -2px black;
+    background-color: #aaaaaa;
+}
+
+td {
+    background-color: #dddddd;
+    font-family: 'Courier New', Courier, monospace;
+    line-height: normal;
+    font-size: 1.25rem;
+    width: 3rem;
+    min-width: 3rem;
+    max-width: 3rem;
+    height: 3rem;
+    max-height: 3rem;
+    border: 1px solid #aaaaaa;
+    border-radius: 0.25rem;
+    margin: 0;
+    padding: 0.5rem;
+    vertical-align: middle;
+    text-align: center; 
+    box-sizing: border-box;
+
+    transition: 1s all;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+.activeText {
+    z-index: 3;
+    background-color: #bfbead;
+    box-shadow: 0 0 7px -3px black inset;
+    text-shadow: 0 0 2px black;
+}
+
+.editor-movement {
+    color: #eb1064;
+}
+
+.editor-operators {
+    color: #f05209;
+}
+
+.editor-io {
+    color: #06a570;
+}
+
+.editor-stack {
+    color: #810eb6;
+}
+
+.editor-string {
+    color: #07d307;
+}
+
+.editor-end {
+    color: #572c05;
+}
+
+.bridge {
+    background-color: #a971f3;
+}
