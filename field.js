@@ -32,7 +32,7 @@ export class Field {
 
         if ( key.keyCode != 16 && key.keyCode != 17 && key.keyCode != 18 && key.keyCode != 225 ) {
             key.preventDefault();
-            if ( key.key === "Backspace" ) {
+            if ( key.key === "Backspace" || key.key === "Delete" ) {
                 this.removeChar();
             }
             else if ( key.key === "Enter" ) {
