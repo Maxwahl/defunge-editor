@@ -15,7 +15,6 @@ export class Cursor {
         this.posX += 1;
     }
     newLine() {
-        this.posX = 0;
         this.posY += 1;
     }
     last( prevLine ) {
