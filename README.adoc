@@ -1,5 +1,5 @@
 = Maxwahls defunge
 
-A visual editor for defunge"
+A visual editor for defunge
 
 NOTE: to run, a server is needed: http-server is a lightweight option
