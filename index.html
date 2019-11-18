@@ -1,0 +1,71 @@
+<head>
+    <style>
+        td {
+            font-family: 'Courier New', Courier, monospace;
+            line-height: normal;
+            height: 20px;
+            width: 10px;
+            border: 1px dotted black;
+        }
+
+        td {
+            margin: 0;
+            padding: 1;
+        }
+
+        .activeText {
+            border: 1px solid red;
+            padding: 0;
+        }
+
+        .editor-movement {
+            color: #eb1064;
+        }
+
+        .editor-operators {
+            color: #f05209;
+        }
+
+        .editor-io {
+            color: #06a570;
+        }
+
+        .editor-stack {
+            color: #810eb6;
+        }
+
+        .editor-string {
+            color: #07d307;
+        }
+
+        .editor-end {
+            color: #572c05;
+        }
+
+        .bridge {
+            background-color: #a971f3;
+        }
+    </style>
+    <style src="./style.css"></style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="module">
+        import { Editor } from "./index.js";
+
+        var editor = new Editor();
+
+
+        $( document ).ready( function () { editor.showField(); } );
+        $( document ).on( "keydown", function ( e ) {
+            editor.handleKey( e );
+            editor.showField();
+        } );
+    </script>
+</head>
+
+<body>
+    <table id="field">
+        <tbody>
+
+        </tbody>
+    </table>
+</body>
