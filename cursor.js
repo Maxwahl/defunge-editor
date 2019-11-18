@@ -6,10 +6,10 @@ export class Cursor {
         this.posY += 1;
     }
     up() {
-        this.posY -= 1
+        this.posY = Math.max( this.posY - 1, 0 );
     }
     left() {
-        this.posX -= 1;
+        this.posX = Math.max( this.posX - 1, 0 );
     }
     right() {
         this.posX += 1;
