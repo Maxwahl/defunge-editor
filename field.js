@@ -59,7 +59,7 @@ export class Field {
             this.fillUp();
         }
     }
-    fillUp() {
+    fillUp( brdiges ) {
         //add cursor space
         if ( this.field[ this.cursor.posY ] == undefined ) {
             this.field.push();

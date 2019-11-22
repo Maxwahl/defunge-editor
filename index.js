@@ -19,8 +19,8 @@ export class Editor {
     showField() {
         var table = $( "#field" );
         table.find( "tbody tr" ).remove();
-        this.field.fillUp();
         this.calcBridges();
+        this.field.fillUp( this.bridges );
         var map = this.field.field
         for ( var i = 0; i < map.length; i++ ) {
             var innerArrayLength = map[ i ].length;
@@ -187,7 +187,23 @@ export class Editor {
         }
         newBridges.forEach( it => this.addBridge( it ) );
 
-        console.log( newBridges )
+
+
+
+        var startHasBridge = false
+        for ( var i = 0; i < this.bridges.length; i++ ) {
+            if ( this.bridges[ i ].between( 0, 0 ) ) {
+                startHasBridge = true;
+            }
+        }
+
+        if ( !startHasBridge ) {
+            var startBridge = new Bridge();
+            startBridge.pointA = new Point( 0, 0 );
+            var end = this.findBridgeEndRight( 0, 0 );
+            startBridge.pointB = new Point( end, 0 );
+            this.addBridge( startBridge );
+        }
     }
     addBridge( bridge ) {
         if ( !this.bridgeIsContained( bridge ) ) {
@@ -201,7 +217,6 @@ export class Editor {
         this.bridges.forEach( element => {
             if ( element.between( x, y ) ) {
                 isBridge = " bridge"
-
             }
         } );
         return isBridge;
