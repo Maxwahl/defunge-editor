@@ -18,6 +18,9 @@ export class Field {
 
     removeChar() {
         this.cursor.last( this.field[ this.cursor.posY - 1 ] );
+        this.deleteChar();
+    }
+    deleteChar() {
         this.field[ this.cursor.posY ][ this.cursor.posX ] = " ";
     }
     newLine() {
@@ -26,7 +29,7 @@ export class Field {
     handleKey( key ) {
         if ( key.keyCode != 16 && key.keyCode != 17 && key.keyCode != 18 && key.keyCode != 225 ) {
             key.preventDefault();
-            if ( key.key === "Backspace" || key.key === "Delete" ) {
+            if ( key.key === "Backspace" ) {
                 this.removeChar();
             }
             else if ( key.key === "Enter" ) {
@@ -46,6 +49,9 @@ export class Field {
             }
             else if ( key.key === "Dead" ) {
                 this.putChar( "^" );
+            }
+            else if ( key.key === "Delete" ) {
+                this.deleteChar();
             }
             else {
                 this.putChar( key.key );

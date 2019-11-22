@@ -146,6 +146,48 @@ export class Editor {
                 }
             }
         }
+
+        var newBridges = new Array();
+        for ( var i = 0; i < this.field.field.length; i++ ) {
+            for ( var j = 0; j < this.field.field[ i ].length; j++ ) {
+                if ( this.field.field[ i ][ j ] == "#" ) {
+                    console.log( "found skip" )
+                    for ( var b = 0; b < this.bridges.length; b++ ) {
+                        if ( this.bridges[ b ].between( j, i ) ) {
+                            if ( this.bridges[ b ].isHorizontal() ) {
+                                var leftBridge = new Bridge();
+                                leftBridge.pointA = new Point( j, i );
+                                var end = this.findBridgeEndLeft( j, i );
+                                leftBridge.pointB = new Point( end, i )
+                                newBridges.push( leftBridge );
+                                var rightBridge = new Bridge();
+                                rightBridge.pointA = new Point( j, i );
+                                var end = this.findBridgeEndRight( j, i );
+                                rightBridge.pointB = new Point( end, i )
+                                newBridges.push( rightBridge );
+
+
+                            }
+                            else {
+                                var downBridge = new Bridge();
+                                downBridge.pointA = new Point( j, i );
+                                var end = this.findBridgeEndDown( j, i );
+                                downBridge.pointB = new Point( j, end )
+                                newBridges.push( downBridge );
+                                var upBridge = new Bridge();
+                                upBridge.pointA = new Point( j, i );
+                                var end = this.findBridgeEndUp( j, i );
+                                upBridge.pointB = new Point( j, end )
+                                newBridges.push( upBridge );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        newBridges.forEach( it => this.addBridge( it ) );
+
+        console.log( newBridges )
     }
     addBridge( bridge ) {
         if ( !this.bridgeIsContained( bridge ) ) {
