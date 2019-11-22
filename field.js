@@ -11,9 +11,87 @@ export class Field {
         }
     }
 
-    putChar( character ) {
+    putChar( character, bridges ) {
         this.field[ this.cursor.posY ][ this.cursor.posX ] = character;
-        this.cursor.right();
+
+        var goVertical = false;
+        for ( var i = 0; i < bridges.length; i++ ) {
+            if ( bridges[ i ].between( this.cursor.posX, this.cursor.posY ) && bridges[ i ].isVertical() ) {
+                goVertical = true;
+            }
+        }
+
+        var goHorizontal = false;
+        for ( var i = 0; i < bridges.length; i++ ) {
+            if ( bridges[ i ].between( this.cursor.posX, this.cursor.posY ) && bridges[ i ].isHorizontal() ) {
+                goHorizontal = true;
+            }
+        }
+
+        if ( character == "^" ) {
+            this.cursor.up()
+        }
+        else if ( character == "v" ) {
+            this.cursor.down()
+        }
+        else if ( character == "<" ) {
+            this.cursor.left();
+        }
+        else if ( character == ">" ) {
+            this.cursor.right();
+        }
+        else if ( character == "_" ) {
+            if ( this.field[ this.cursor.posY ][ this.cursor.posX + 1 ] != undefined && this.field[ this.cursor.posY ][ this.cursor.posX + 1 ] != " " ) {
+                this.cursor.left();
+            }
+            else {
+                this.cursor.right();
+            }
+        }
+        else if ( character == "|" ) {
+            if ( this.field[ this.cursor.posY + 1 ] != undefined && this.field[ this.cursor.posY + 1 ][ this.cursor.posX ] != undefined && this.field[ this.cursor.posY + 1 ][ this.cursor.posX ] != " " ) {
+                this.cursor.up();
+            }
+            else {
+                this.cursor.down();
+            }
+        }
+        else if ( character == "?" ) {
+            if ( this.field[ this.cursor.posY ][ this.cursor.posX + 1 ] == " " ) {
+                this.cursor.right();
+            }
+            else if ( this.field[ this.cursor.posY + 1 ] == undefined || this.field[ this.cursor.posY + 1 ][ this.cursor.posX ] == undefined || this.field[ this.cursor.posY + 1 ][ this.cursor.posX ] == " " ) {
+                this.cursor.down();
+            }
+            else if ( this.field[ this.cursor.posY ][ this.cursor.posX - 1 ] == " " ) {
+                this.cursor.left();
+            }
+            else if ( this.field[ this.cursor.posY - 1 ][ this.cursor.posX ] == " " ) {
+                this.cursor.up();
+            }
+            else {
+                this.cursor.right();
+            }
+        }
+        else if ( goVertical ) {
+            if ( this.cursor.lastMovement == "up" ) {
+                this.cursor.up();
+            }
+            else {
+                this.cursor.down();
+            }
+        }
+        else if ( goHorizontal ) {
+            if ( this.cursor.lastMovement == "left" ) {
+                this.cursor.left();
+            }
+            else {
+                this.cursor.right();
+            }
+        }
+        else {
+            this.cursor.right();
+        }
     }
 
     removeChar() {
@@ -26,7 +104,7 @@ export class Field {
     newLine() {
         this.cursor.newLine();
     }
-    handleKey( key ) {
+    handleKey( key, bridges ) {
         if ( key.keyCode != 16 && key.keyCode != 17 && key.keyCode != 18 && key.keyCode != 225 ) {
             key.preventDefault();
             if ( key.key === "Backspace" ) {
@@ -48,18 +126,18 @@ export class Field {
                 this.cursor.right();
             }
             else if ( key.key === "Dead" ) {
-                this.putChar( "^" );
+                this.putChar( "^", bridges );
             }
             else if ( key.key === "Delete" ) {
                 this.deleteChar();
             }
             else {
-                this.putChar( key.key );
+                this.putChar( key.key, bridges );
             }
             this.fillUp();
         }
     }
-    fillUp( brdiges ) {
+    fillUp() {
         //add cursor space
         if ( this.field[ this.cursor.posY ] == undefined ) {
             this.field.push();

@@ -20,7 +20,7 @@ export class Editor {
         var table = $( "#field" );
         table.find( "tbody tr" ).remove();
         this.calcBridges();
-        this.field.fillUp( this.bridges );
+        this.field.fillUp();
         var map = this.field.field
         for ( var i = 0; i < map.length; i++ ) {
             var innerArrayLength = map[ i ].length;
@@ -44,7 +44,7 @@ export class Editor {
     }
 
     handleKey( key ) {
-        this.field.handleKey( key );
+        this.field.handleKey( key, this.bridges );
     }
 
     handleSyntaxHighlighting( char ) {
@@ -189,12 +189,9 @@ export class Editor {
 
 
 
-
-        var startHasBridge = false
-        for ( var i = 0; i < this.bridges.length; i++ ) {
-            if ( this.bridges[ i ].between( 0, 0 ) ) {
-                startHasBridge = true;
-            }
+        var startHasBridge = false;
+        if ( Editor.movement.includes( this.field.field[ 0 ][ 0 ] ) ) {
+            startHasBridge = true;
         }
 
         if ( !startHasBridge ) {
