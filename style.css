@@ -70,7 +70,7 @@ td {
 }
 
 .editor-string {
-    color: #07d307;
+    color: #07d307 !important;
 }
 
 .editor-end {
@@ -78,5 +78,6 @@ td {
 }
 
 .bridge {
-    background-color: #a971f3;
+    background-color: #a971f321;
+    opacity: ;
 }
