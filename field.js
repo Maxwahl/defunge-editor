@@ -2,17 +2,12 @@ import { Cursor } from "./cursor.js";
 
 export class Field {
 
-    field = new Array( 1 );
+    field;
     cursor = new Cursor();
     constructor () {
+        this.field = new Array( 1 );;
         for ( var i = 0; i < 1; i++ ) {
-            this.field[ i ] = new Array( 1 );
-        }
-
-        for ( var i = 0; i < 1; i++ ) {
-            for ( var j = 0; j < 1; j++ ) {
-                this.field[ i ][ j ] = " "
-            }
+            this.field[ i ] = new Array( 1 ).fill( " " );
         }
     }
 
@@ -29,7 +24,6 @@ export class Field {
         this.cursor.newLine();
     }
     handleKey( key ) {
-
         if ( key.keyCode != 16 && key.keyCode != 17 && key.keyCode != 18 && key.keyCode != 225 ) {
             key.preventDefault();
             if ( key.key === "Backspace" || key.key === "Delete" ) {
@@ -60,23 +54,91 @@ export class Field {
         }
     }
     fillUp() {
-        var maxColLength = 0;
-        for ( var i = 0; i < this.field.length; i++ ) {
-            maxColLength = Math.max( maxColLength, this.field[ i ].length );
-        }
-        if ( this.cursor.posY >= this.field.length ) {
+        //add cursor space
+        if ( this.field[ this.cursor.posY ] == undefined ) {
             this.field.push();
-            this.field[ this.cursor.posY ] = new Array( maxColLength ).fill( " " );
+            this.field[ this.cursor.posY ] = new Array( this.cursor.posX + 1 ).fill( " " )
+
         }
-        while ( this.cursor.posX >= this.field[ this.cursor.posY ].length ) {
-            this.field[ this.cursor.posY ].push( " " )
+        else if ( this.field[ this.cursor.posY ][ this.cursor.posX ] == undefined ) {
+            this.field[ this.cursor.posY ][ this.cursor.posX ] = " "
         }
+
+        //remove empty rows (trailing)
+        var lastRow = this.lastRow();
+        this.field.length = lastRow + 1;
+        //get current cursor
+
+        var maxCol = Math.max.apply( Math, $.map( this.field, function ( el ) { return el.length } ) ) - 1;
         for ( var i = 0; i < this.field.length; i++ ) {
-            if ( this.field[ i ].length < maxColLength ) {
-                while ( this.cursor.posX >= this.field[ i ].length ) {
-                    this.field[ i ].push( " " )
+            if ( this.field[ i ].length < maxCol + 1 ) {
+                this.field[ i ].length = maxCol + 1;
+                this.field[ i ].fill( " ", this.field[ i ].length, maxCol - 1 );
+            }
+        }
+        var lastCol = this.lastCol();
+        for ( var i = 0; i < this.field.length; i++ ) {
+            this.field[ i ].length = lastCol + 1;
+        }
+
+        for ( var i = 0; i < this.field.length; i++ ) {
+            for ( var j = 0; j < this.field[ i ].length; j++ ) {
+                if ( this.field[ i ][ j ] == undefined ) {
+                    this.field[ i ][ j ] = " "
                 }
             }
         }
+
+
+
+    }
+
+    lastCharInLineAt( lineIndex ) {
+        var line = this.field[ lineIndex ];
+        var lastChar = -1;
+        if ( line !== undefined ) {
+            for ( var i = 0; i < line.length; i++ ) {
+                if ( line[ i ] != " " ) {
+                    lastChar = i + 1; // index  + space because of character adding
+                }
+            }
+        }
+        return lastChar;
+    }
+
+    isEmpty( array ) {
+        var isEmpty = true;
+        if ( array == undefined ) {
+            return false;
+        }
+        array.forEach( element => {
+            if ( element != " " ) {
+                isEmpty = false;
+            }
+        } );
+        return isEmpty;
+    }
+    lastRow() {
+        var lastRow = this.field.length - 1;
+        for ( var i = this.field.length - 1; i >= 0; i-- ) {
+            if ( !this.isEmpty( this.field[ i ] ) || i == this.cursor.posY ) {
+                lastRow = i;
+                break;
+            }
+        }
+
+        return lastRow;
+    }
+
+    lastCol() {
+        var lastCol = Math.max.apply( Math, $.map( this.field, function ( el ) { return el.length } ) ) - 1;
+        for ( var i = lastCol; i >= 0; i-- ) {
+            var col = this.field.map( e => e[ i ] );
+            if ( !this.isEmpty( col ) || i == this.cursor.posX ) {
+                lastCol = i;
+                break;
+            }
+        }
+        return lastCol;
     }
 }

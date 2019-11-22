@@ -19,11 +19,12 @@ export class Editor {
     showField() {
         var table = $( "#field" );
         table.find( "tbody tr" ).remove();
-        var map = this.field.field
         this.field.fillUp();
         this.calcBridges();
+        var map = this.field.field
         for ( var i = 0; i < map.length; i++ ) {
-            var innerArrayLength = map[ i ].length; var row = "";
+            var innerArrayLength = map[ i ].length;
+            var row = "";
             this.stringBegun = false;
             for ( var j = 0; j < innerArrayLength; j++ ) {
                 var clazz = "class=\"";
@@ -37,6 +38,9 @@ export class Editor {
             }
             table.append( "<tr>" + row + "</tr>" );
         }
+        table = document.getElementById( 'field' );
+        var cell = table.getElementsByTagName( 'tr' )[ this.field.cursor.posY ].getElementsByTagName( 'td' )[ this.field.cursor.posX ];
+        cell.scrollIntoView();
     }
 
     handleKey( key ) {
@@ -74,7 +78,6 @@ export class Editor {
     }
 
     calcBridges() {
-        console.log( "yoink" )
         this.bridges = new Array();
         for ( var i = 0; i < this.field.field.length; i++ ) {
             for ( var j = 0; j < this.field.field[ i ].length; j++ ) {
@@ -143,11 +146,8 @@ export class Editor {
                 }
             }
         }
-        console.log( this.bridges )
     }
     addBridge( bridge ) {
-        console.log( "adding bridge" )
-        console.log( bridge )
         if ( !this.bridgeIsContained( bridge ) ) {
             this.bridges.push( bridge );
         }
