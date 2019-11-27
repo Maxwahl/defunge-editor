@@ -1,0 +1,26 @@
+{
+  "name": "defunge",
+  "version": "1.0.0",
+  "description": "= Maxwahls defunge",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maxwahl/defunge-editor.git"
+  },
+  "author": "Maximilian Wahl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Maxwahl/defunge-editor/issues"
+  },
+  "homepage": "https://github.com/Maxwahl/defunge-editor#readme",
+  "devDependencies": {
+    "electron": "^7.1.2"
+  },
+  "dependencies": {
+    "jquery": "^3.4.1"
+  }
+}

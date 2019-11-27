@@ -1,19 +1,16 @@
 <head>
     <style>
-        
+
     </style>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script id="__bs_script__">//<![CDATA[
-            document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.7'><\/script>".replace("HOST", location.hostname));
+        document.write( "<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.7'><\/script>".replace( "HOST", location.hostname ) );
         //]]>
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>window.$ = window.jQuery = require( 'jquery' );</script>
     <script type="module">
-        import { Editor } from "./index.js";
-
+        import { Editor } from "./editor.js";
         var editor = new Editor();
-
-
         $( document ).ready( function () { editor.showField(); } );
         $( document ).on( "keydown", function ( e ) {
             editor.handleKey( e );
@@ -24,10 +21,10 @@
 
 <body>
     <div class="field-holder">
-    <table id="field" cellspacing="0">
-        <tbody>
+        <table id="field" cellspacing="0">
+            <tbody>
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
     </div>
 </body>

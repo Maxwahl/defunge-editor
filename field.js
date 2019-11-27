@@ -56,7 +56,7 @@ export class Field {
                 this.cursor.down();
             }
         }
-        else if ( character == "?" ) {
+        else if ( character == "\?" ) {
             if ( this.field[ this.cursor.posY ][ this.cursor.posX + 1 ] == " " ) {
                 this.cursor.right();
             }
@@ -82,7 +82,7 @@ export class Field {
             }
         }
         else if ( goHorizontal ) {
-            if ( this.cursor.lastMovement == "left" ) {
+            if ( this.cursor.lastMovement == "left" && this.cursor.posX > 0 ) {
                 this.cursor.left();
             }
             else {
@@ -95,7 +95,21 @@ export class Field {
     }
 
     removeChar() {
-        this.cursor.last( this.field[ this.cursor.posY - 1 ] );
+        if ( this.cursor.lastMovement == "up" ) {
+            this.cursor.down( true );
+        }
+        else if ( this.cursor.lastMovement == "down" ) {
+            this.cursor.up( true );
+        }
+        else if ( this.cursor.lastMovement == "left" ) {
+            this.cursor.right( true );
+        }
+        else if ( this.cursor.lastMovement == "right" ) {
+            this.cursor.left( true );
+        }
+        else {
+            this.cursor.left( true );
+        }
         this.deleteChar();
     }
     deleteChar() {
@@ -147,7 +161,6 @@ export class Field {
         else if ( this.field[ this.cursor.posY ][ this.cursor.posX ] == undefined ) {
             this.field[ this.cursor.posY ][ this.cursor.posX ] = " "
         }
-
         //remove empty rows (trailing)
         var lastRow = this.lastRow();
         this.field.length = lastRow + 1;

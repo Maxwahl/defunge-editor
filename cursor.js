@@ -7,25 +7,33 @@ export class Cursor {
 
     lastMovement = ";"
 
-    down() {
+    down( isDelete = false ) {
         this.lastY = this.posY
         this.posY += 1;
-        this.lastMovement = "down"
+        if ( !isDelete ) {
+            this.lastMovement = "down"
+        }
     }
-    up() {
+    up( isDelete = false ) {
         this.lastY = this.posY
         this.posY = Math.max( this.posY - 1, 0 );
-        this.lastMovement = "up"
+        if ( !isDelete ) {
+            this.lastMovement = "up"
+        }
     }
-    left() {
+    left( isDelete = false ) {
         this.lastX = this.posX;
         this.posX = Math.max( this.posX - 1, 0 );
-        this.lastMovement = "left"
+        if ( !isDelete ) {
+            this.lastMovement = "left"
+        }
     }
-    right() {
+    right( isDelete = false ) {
         this.lastX = this.posX;
         this.posX += 1;
-        this.lastMovement = "right"
+        if ( !isDelete ) {
+            this.lastMovement = "right"
+        }
     }
     newLine() {
         this.lastY = this.posY
