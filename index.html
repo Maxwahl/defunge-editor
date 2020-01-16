@@ -16,6 +16,7 @@
         $( document ).on( "keydown", function ( e ) {
             editor.handleKey( e );
             editor.showField();
+            return true;
         } );
         runButton.addEventListener( "click", function(e) {
             const int = new Interpreter(editor.field, function(x, y) {

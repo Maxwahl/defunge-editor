@@ -119,37 +119,45 @@ export class Field {
         this.cursor.newLine();
     }
     handleKey( key, bridges ) {
-        if ( key.keyCode != 16 && key.keyCode != 17 && key.keyCode != 18 && key.keyCode != 225 ) {
-            key.preventDefault();
-            if ( key.key === "Backspace" ) {
-                this.removeChar();
-            }
-            else if ( key.key === "Enter" ) {
-                this.cursor.newLine();
-            }
-            else if ( key.key === "ArrowUp" ) {
-                this.cursor.up();
-            }
-            else if ( key.key === "ArrowDown" ) {
-                this.cursor.down();
-            }
-            else if ( key.key === "ArrowLeft" ) {
-                this.cursor.left();
-            }
-            else if ( key.key === "ArrowRight" ) {
-                this.cursor.right();
-            }
-            else if ( key.key === "Dead" ) {
-                this.putChar( "^", bridges );
-            }
-            else if ( key.key === "Delete" ) {
-                this.deleteChar();
-            }
-            else {
-                this.putChar( key.key, bridges );
-            }
-            this.fillUp();
+        console.log("HANDLE")
+        console.log(key);
+        console.log(key.keyCode);
+        console.log(key.key);
+        let prevent = true;
+        if ( key.key === "Backspace" ) {
+            this.removeChar();
         }
+        else if ( key.key === "Enter" ) {
+            this.cursor.newLine();
+        }
+        else if ( key.key === "ArrowUp" ) {
+            this.cursor.up();
+        }
+        else if ( key.key === "ArrowDown" ) {
+            this.cursor.down();
+        }
+        else if ( key.key === "ArrowLeft" ) {
+            this.cursor.left();
+        }
+        else if ( key.key === "ArrowRight" ) {
+            this.cursor.right();
+        }
+        else if ( key.key === "Dead" ) {
+            this.putChar( "^", bridges );
+        }
+        else if ( key.key === "Delete" ) {
+            this.deleteChar();
+        }
+        else if ( !key.ctrlKey && key.key.length == 1) {
+            this.putChar( key.key, bridges );
+        }else{
+            prevent = false;
+        }
+        if(prevent){
+            key.preventDefault();
+        }
+        this.fillUp();
+    
     }
     fillUp() {
         //add cursor space
