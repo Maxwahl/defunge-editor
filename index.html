@@ -10,12 +10,19 @@
     <script>window.$ = window.jQuery = require( 'jquery' );</script>
     <script type="module">
         import { Editor } from "./editor.js";
+        import { Interpreter } from "./interpret.js";
         var editor = new Editor();
         $( document ).ready( function () { editor.showField(); } );
         $( document ).on( "keydown", function ( e ) {
             editor.handleKey( e );
             editor.showField();
         } );
+        runButton.addEventListener( "click", function(e) {
+            const int = new Interpreter(editor.field, function(x, y) {
+                console.log("CALLBACK")
+            });
+            int.start();
+        }); 
     </script>
 </head>
 
@@ -27,4 +34,5 @@
             </tbody>
         </table>
     </div>
+    <button id="runButton">Play</button>
 </body>

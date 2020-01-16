@@ -12,6 +12,9 @@ export class Editor {
     field;
     stringBegun;
     bridges;
+
+    currentRunCoordinates = [];
+
     constructor () {
         this.field = new Field();
         this.bridges = new Array();
@@ -31,6 +34,11 @@ export class Editor {
                 if ( this.field.cursor.posY === i && this.field.cursor.posX == j ) {
                     clazz += "activeText"
                 }
+                if(this.currentRunCoordinates && 
+                    this.field.cursor.posY === this.currentRunCoordinates[1] &&
+                    this.field.cursor.posX === this.currentRunCoordinates[0]) {
+                        clazz += " activeRun"
+                    }
                 clazz += this.handleSyntaxHighlighting( map[ i ][ j ] );
                 clazz += this.handleBridges( j, i );
                 clazz += "\"";
@@ -41,6 +49,11 @@ export class Editor {
         table = document.getElementById( 'field' );
         var cell = table.getElementsByTagName( 'tr' )[ this.field.cursor.posY ].getElementsByTagName( 'td' )[ this.field.cursor.posX ];
         cell.scrollIntoView();
+    }
+
+    highlightCurrentRunCell(x, y) {
+        this.currentRunCoordinates = [x, y];
+        this.showField();
     }
 
     handleKey( key ) {

@@ -52,6 +52,12 @@ td {
     box-shadow: 0 0 7px -3px black inset;
     text-shadow: 0 0 2px black;
 }
+.activeRun {
+    z-index: 3;
+    background-color: red !important;
+    box-shadow: 0 0 7px -3px black inset;
+    text-shadow: 0 0 2px black;
+}
 
 .editor-movement {
     color: #eb1064;
